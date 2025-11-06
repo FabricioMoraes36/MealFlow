@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "mesas")
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -37,5 +36,38 @@ public class Mesa {
     @ManyToOne
     @JoinColumn(name = "garcom_id")
     private Garcom garcom;
+
+    // Custom constructor for Builder compatibility with collection initialization
+    public Mesa(Long id, Long numero, MesaStatus status, Turno turnoMesa, List<Pedido> pedidos, Garcom garcom) {
+        this.id = id;
+        this.numero = numero;
+        this.status = status;
+        this.turnoMesa = turnoMesa;
+        this.pedidos = pedidos != null ? pedidos : new ArrayList<>();
+        this.garcom = garcom;
+    }
+
+    // Helper methods for bidirectional relationship management
+    public void addPedido(Pedido pedido) {
+        pedidos.add(pedido);
+        pedido.setMesa(this);
+    }
+
+    public void removePedido(Pedido pedido) {
+        pedidos.remove(pedido);
+        pedido.setMesa(null);
+    }
+
+    public void setGarcom(Garcom garcom) {
+        // Remove from old garcom if exists
+        if (this.garcom != null && this.garcom.getMesas().contains(this)) {
+            this.garcom.getMesas().remove(this);
+        }
+        this.garcom = garcom;
+        // Add to new garcom if not null
+        if (garcom != null && !garcom.getMesas().contains(this)) {
+            garcom.getMesas().add(this);
+        }
+    }
 
 }

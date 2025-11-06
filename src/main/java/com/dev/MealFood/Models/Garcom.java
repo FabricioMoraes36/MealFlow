@@ -30,4 +30,19 @@ public class Garcom {
     @JsonIgnore
     @OneToMany(mappedBy = "garcom")
     private List<Mesa> mesas = new ArrayList<>();
+
+    // Helper methods for bidirectional relationship management
+    public void addMesa(Mesa mesa) {
+        if (!mesas.contains(mesa)) {
+            mesas.add(mesa);
+            mesa.setGarcom(this);
+        }
+    }
+
+    public void removeMesa(Mesa mesa) {
+        if (mesas.contains(mesa)) {
+            mesas.remove(mesa);
+            mesa.setGarcom(null);
+        }
+    }
 }

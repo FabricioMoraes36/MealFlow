@@ -38,11 +38,12 @@ public class PedidoService {
         }
         else {
             Pedido pedido = new Pedido();
-            pedido.setMesa(mesa);
             pedido.setGarcom(mesa.getGarcom());
             pedido.setDataHoraAbertura(LocalDateTime.now());
             pedido.setStatus(StatusPedido.ABERTO);
 
+            // Use helper method to maintain bidirectional relationship
+            mesa.addPedido(pedido);
 
             mesa.setStatus(MesaStatus.OCUPADA);
             mesaRepository.save(mesa);

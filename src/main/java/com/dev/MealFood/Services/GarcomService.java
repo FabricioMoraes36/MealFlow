@@ -61,8 +61,8 @@ public class GarcomService {
             throw new RuntimeException("Garçom só pode atender mesas do mesmo Turno");
         }
 
-        mesa.setGarcom(garcom);
-        garcom.getMesas().add(mesa);
+        // Use helper method to maintain bidirectional relationship
+        garcom.addMesa(mesa);
 
         mesaRepository.save(mesa);
         return repository.save(garcom);
