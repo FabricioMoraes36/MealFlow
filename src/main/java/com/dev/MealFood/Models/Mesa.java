@@ -26,9 +26,15 @@ public class Mesa {
     @Column(name="status", nullable = false)
     private MesaStatus status;
 
-    @OneToMany
-    private Turno turnoMesa;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Turno turno;
 
     @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
+
+    @ManyToOne
+    @JoinColumn(name = "garcom_id")
+    private Garcom garcom;
+
 }
