@@ -1,6 +1,6 @@
 package com.dev.MealFood.Enums;
 
-public enum TurnoGarcom {
+public enum Turno {
     MANHA,
     TARDE,
     NOITE

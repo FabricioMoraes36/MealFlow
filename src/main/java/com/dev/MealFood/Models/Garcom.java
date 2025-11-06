@@ -1,6 +1,6 @@
 package com.dev.MealFood.Models;
 
-import com.dev.MealFood.Enums.TurnoGarcom;
+import com.dev.MealFood.Enums.Turno;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +21,7 @@ public class Garcom {
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Turno é obrigatório")
-    private TurnoGarcom turno;
+    private Turno turno;
 
     @OneToMany(mappedBy = "garcom")
     private List<Mesa> mesas;

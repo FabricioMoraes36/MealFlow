@@ -1,6 +1,7 @@
 package com.dev.MealFood.Models;
 
 import com.dev.MealFood.Enums.MesaStatus;
+import com.dev.MealFood.Enums.Turno;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +26,9 @@ public class Mesa {
     @Column(name="status", nullable = false)
     private MesaStatus status;
 
+    @OneToMany
+    private Turno turnoMesa;
+
     @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL)
-    @Column(name="pedidos")
     private List<Pedido> pedidos;
 }
