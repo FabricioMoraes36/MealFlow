@@ -1,4 +1,6 @@
 package com.dev.MealFood.DTO;
 
-public record MesaResponse (Long id, Long numeroMesa){
+import com.dev.MealFood.Enums.Turno;
+
+public record MesaResponse (Long id, Long numeroMesa, String statusMesa, Turno turnoMesa){
 }

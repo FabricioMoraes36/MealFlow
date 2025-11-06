@@ -21,14 +21,12 @@ public class Mesa {
     private Long id;
 
     @Column(name="numero", nullable = false, unique = true)
-    private Integer numero;
+    private Long numero;
 
     @Column(name="status", nullable = false)
     private MesaStatus status;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Turno turno;
+    private Turno turnoMesa;
 
     @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
