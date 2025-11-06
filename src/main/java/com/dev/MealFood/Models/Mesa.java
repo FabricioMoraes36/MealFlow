@@ -16,8 +16,11 @@ import java.util.UUID;
 public class Mesa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="numero", nullable = false, unique = true)
+    private Integer numero;
 
     @Column(name="status", nullable = false)
     private MesaStatus status;
