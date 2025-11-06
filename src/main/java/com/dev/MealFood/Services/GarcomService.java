@@ -2,10 +2,12 @@ package com.dev.MealFood.Services;
 
 
 import com.dev.MealFood.DTO.RelatorioGarcomDTO;
+import com.dev.MealFood.Enums.StatusPedido;
 import com.dev.MealFood.Models.Garcom;
 import com.dev.MealFood.Models.Mesa;
 import com.dev.MealFood.Repositories.GarcomRepository;
 import com.dev.MealFood.Repositories.MesaRepository;
+import com.dev.MealFood.Repositories.PedidoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,7 +78,7 @@ public class GarcomService {
 
             double total = pedidoRepository.findByGarcomAndStatusAndData(
                     garcom.getId(),
-                    StatusPedido.FECHADO,
+                    StatusPedido.ENTREGUE,
                     hoje.atStartOfDay(),
                     hoje.plusDays(1).atStartOfDay()
             );
