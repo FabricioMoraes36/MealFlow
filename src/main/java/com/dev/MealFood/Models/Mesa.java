@@ -21,12 +21,11 @@ public class Mesa {
     private Long id;
 
     @Column(name="numero", nullable = false, unique = true)
-    private Integer numero;
+    private Long numero;
 
     @Column(name="status", nullable = false)
     private MesaStatus status;
 
-    @OneToMany
     private Turno turnoMesa;
 
     @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL)
