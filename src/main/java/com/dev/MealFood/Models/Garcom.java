@@ -28,4 +28,15 @@ public class Garcom {
     @JsonIgnore
     @OneToMany(mappedBy = "garcom")
     private List<Mesa> mesas = new ArrayList<>();
+
+    // Métodos auxiliares para manter consistência bidirecional
+    public void addMesa(Mesa mesa) {
+        mesas.add(mesa);
+        mesa.setGarcom(this);
+    }
+
+    public void removeMesa(Mesa mesa) {
+        mesas.remove(mesa);
+        mesa.setGarcom(null);
+    }
 }

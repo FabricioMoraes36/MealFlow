@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "ingredientes")
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Ingredientes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nome_ingrediente")
@@ -33,5 +33,5 @@ public class Ingredientes {
     private UnidadeMedida unidadeMedida;
 
     @ManyToMany(mappedBy = "ingredientes")
-    private List<Prato> pratos;
+    private List<Prato> pratos = new ArrayList<>();
 }
