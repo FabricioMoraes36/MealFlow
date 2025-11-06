@@ -23,4 +23,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
             @Param("status") StatusPedido status,
             @Param("inicio") LocalDateTime inicio,
             @Param("fim") LocalDateTime fim);
+
+
+    public boolean existsByMesaIdAndStatus(Long mesaId, StatusPedido status);
+
 }

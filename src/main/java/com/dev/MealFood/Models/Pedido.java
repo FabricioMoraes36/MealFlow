@@ -3,11 +3,18 @@ package com.dev.MealFood.Models;
 
 import com.dev.MealFood.Enums.StatusPedido;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Entity
+@Table (name = "pedidos")
 public class Pedido {
 
 
@@ -22,6 +29,11 @@ public class Pedido {
 
     @Column (name = "total_pedido")
     private double total;
+
+    private LocalDateTime dataHoraAbertura;
+
+    private LocalDateTime dataHoraFechamento;
+
 
     @Column(name = "status_pedido")
     @Enumerated(EnumType.STRING)
