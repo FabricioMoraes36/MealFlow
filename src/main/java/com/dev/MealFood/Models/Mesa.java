@@ -2,9 +2,7 @@ package com.dev.MealFood.Models;
 
 import com.dev.MealFood.Enums.MesaStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -12,6 +10,8 @@ import java.util.UUID;
 @Table(name = "mesas")
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 @Builder
 public class Mesa {
 
