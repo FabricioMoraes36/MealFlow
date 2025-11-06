@@ -35,6 +35,9 @@ public class Garcom {
     public void addMesa(Mesa mesa) {
         if (!mesas.contains(mesa)) {
             mesas.add(mesa);
+        }
+        // Ensure the other side is also set correctly
+        if (mesa.getGarcom() != this) {
             mesa.setGarcom(this);
         }
     }
@@ -42,6 +45,9 @@ public class Garcom {
     public void removeMesa(Mesa mesa) {
         if (mesas.contains(mesa)) {
             mesas.remove(mesa);
+        }
+        // Ensure the other side is also set correctly
+        if (mesa.getGarcom() == this) {
             mesa.setGarcom(null);
         }
     }
