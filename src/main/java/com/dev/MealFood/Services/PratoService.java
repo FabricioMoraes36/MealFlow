@@ -1,6 +1,7 @@
 package com.dev.MealFood.Services;
 
 import com.dev.MealFood.Enums.PratoCategoria;
+import com.dev.MealFood.Exceptions.PratoNaoEncontradoException;
 import com.dev.MealFood.Models.Prato;
 import com.dev.MealFood.Repositories.PratoRepository;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,14 @@ public class PratoService {
             }
         }
         return pratoRepository.save(prato);
+    }
+
+    public Prato findPratoByName(String nome) {
+        Prato prato = pratoRepository.findPratoByName(nome);
+        if(prato == null){
+            throw new PratoNaoEncontradoException(nome);
+        }
+        return prato;
     }
 
     public Prato findPratoById(Long id) {
