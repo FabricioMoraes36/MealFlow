@@ -2,12 +2,21 @@ package com.dev.MealFood.Models;
 
 import com.dev.MealFood.Enums.PratoCategoria;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "pratos")
 public class Prato {
 
     @Id
@@ -18,7 +27,7 @@ public class Prato {
     private String nome;
 
     @Column(name = "prato_preco", nullable = false)
-    private BigDecimal preco;
+    private BigDecimal preco = BigDecimal.ONE;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "prato_categoria", nullable = false)
