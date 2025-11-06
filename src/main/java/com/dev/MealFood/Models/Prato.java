@@ -43,12 +43,18 @@ public class Prato {
 
     // Métodos auxiliares para manter consistência
     public void addIngrediente(Ingredientes ingrediente) {
-        ingredientes.add(ingrediente);
-        ingrediente.getPratos().add(this);
+        if (!ingredientes.contains(ingrediente)) {
+            ingredientes.add(ingrediente);
+            if (!ingrediente.getPratos().contains(this)) {
+                ingrediente.getPratos().add(this);
+            }
+        }
     }
 
     public void removeIngrediente(Ingredientes ingrediente) {
-        ingredientes.remove(ingrediente);
-        ingrediente.getPratos().remove(this);
+        if (ingredientes.contains(ingrediente)) {
+            ingredientes.remove(ingrediente);
+            ingrediente.getPratos().remove(this);
+        }
     }
 }

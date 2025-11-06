@@ -39,12 +39,16 @@ public class Mesa {
 
     // Métodos auxiliares para manter consistência bidirecional
     public void addPedido(Pedido pedido) {
-        pedidos.add(pedido);
-        pedido.setMesa(this);
+        if (!pedidos.contains(pedido)) {
+            pedidos.add(pedido);
+            pedido.setMesa(this);
+        }
     }
 
     public void removePedido(Pedido pedido) {
-        pedidos.remove(pedido);
-        pedido.setMesa(null);
+        if (pedidos.contains(pedido)) {
+            pedidos.remove(pedido);
+            pedido.setMesa(null);
+        }
     }
 }

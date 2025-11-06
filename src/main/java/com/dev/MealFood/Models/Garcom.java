@@ -31,12 +31,16 @@ public class Garcom {
 
     // Métodos auxiliares para manter consistência bidirecional
     public void addMesa(Mesa mesa) {
-        mesas.add(mesa);
-        mesa.setGarcom(this);
+        if (!mesas.contains(mesa)) {
+            mesas.add(mesa);
+            mesa.setGarcom(this);
+        }
     }
 
     public void removeMesa(Mesa mesa) {
-        mesas.remove(mesa);
-        mesa.setGarcom(null);
+        if (mesas.contains(mesa)) {
+            mesas.remove(mesa);
+            mesa.setGarcom(null);
+        }
     }
 }
