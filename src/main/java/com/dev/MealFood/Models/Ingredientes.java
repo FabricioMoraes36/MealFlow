@@ -20,7 +20,7 @@ public class Ingredientes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private Long id;
 
     @Column(name = "nome_ingrediente")
     private String nome;
