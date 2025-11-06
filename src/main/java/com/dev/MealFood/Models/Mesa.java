@@ -40,32 +40,52 @@ public class Mesa {
 
     // Helper methods for bidirectional relationship management
     public void addPedido(Pedido pedido) {
+        if (pedido == null) {
+            return;
+        }
         if (pedidos == null) {
             pedidos = new ArrayList<>();
         }
+        if (pedidos.contains(pedido)) {
+            return;
+        }
         pedidos.add(pedido);
-        pedido.setMesa(this);
+        // Synchronize the other side only if needed (prevents recursion)
+        if (pedido.getMesa() != this) {
+            pedido.setMesa(this);
+        }
     }
 
     public void removePedido(Pedido pedido) {
-        if (pedidos != null) {
-            pedidos.remove(pedido);
+        if (pedido == null || pedidos == null) {
+            return;
+        }
+        if (!pedidos.contains(pedido)) {
+            return;
+        }
+        pedidos.remove(pedido);
+        // Synchronize the other side only if needed (prevents recursion)
+        if (pedido.getMesa() == this) {
             pedido.setMesa(null);
         }
     }
 
     public void setGarcom(Garcom garcom) {
-        // Remove from old garcom if exists
+        // Handle removal from old garcom
         if (this.garcom != null && this.garcom != garcom) {
             List<Mesa> oldGarcomMesas = this.garcom.getMesas();
-            if (oldGarcomMesas.contains(this)) {
+            if (oldGarcomMesas != null && oldGarcomMesas.contains(this)) {
                 oldGarcomMesas.remove(this);
             }
         }
+        // Update the field
         this.garcom = garcom;
-        // Add to new garcom if not null
-        if (garcom != null && !garcom.getMesas().contains(this)) {
-            garcom.getMesas().add(this);
+        // Add to new garcom collection if needed
+        if (garcom != null) {
+            List<Mesa> newGarcomMesas = garcom.getMesas();
+            if (newGarcomMesas != null && !newGarcomMesas.contains(this)) {
+                newGarcomMesas.add(this);
+            }
         }
     }
 
