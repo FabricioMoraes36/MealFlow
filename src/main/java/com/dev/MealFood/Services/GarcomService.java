@@ -1,20 +1,32 @@
 package com.dev.MealFood.Services;
 
 
+import com.dev.MealFood.DTO.RelatorioGarcomDTO;
 import com.dev.MealFood.Models.Garcom;
+import com.dev.MealFood.Models.Mesa;
 import com.dev.MealFood.Repositories.GarcomRepository;
+import com.dev.MealFood.Repositories.MesaRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GarcomService {
 
     private final GarcomRepository repository;
+    private final MesaRepository mesaRepository;
+    private final PedidoRepository pedidoRepository;
 
-    public GarcomService(GarcomRepository repository) {
+    public GarcomService(GarcomRepository repository,
+                         MesaRepository mesaRepository,
+                         PedidoRepository pedidoRepository) {
         this.repository = repository;
+        this.mesaRepository = mesaRepository;
+        this.pedidoRepository = pedidoRepository;
     }
 
     public Garcom criar(Garcom garcom) {
@@ -52,5 +64,28 @@ public class GarcomService {
 
         mesaRepository.save(mesa);
         return repository.save(garcom);
+    }
+
+    public List<RelatorioGarcomDTO> relatorioGarcons() {
+
+        LocalDate hoje = LocalDate.now();
+
+        List<Garcom> garcons = repository.findAll();
+
+        return garcons.stream().map(garcom -> {
+
+            double total = pedidoRepository.findByGarcomAndStatusAndData(
+                    garcom.getId(),
+                    StatusPedido.FECHADO,
+                    hoje.atStartOfDay(),
+                    hoje.plusDays(1).atStartOfDay()
+            );
+
+            return new RelatorioGarcomDTO(
+                    garcom.getId(),
+                    garcom.getNome(),
+                    total
+            );
+        }).toList();
     }
 }

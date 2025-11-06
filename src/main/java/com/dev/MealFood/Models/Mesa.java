@@ -30,4 +30,9 @@ public class Mesa {
 
     @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
+
+    @ManyToOne
+    @JoinColumn(name = "garcom_id")
+    private Garcom garcom;
+
 }
