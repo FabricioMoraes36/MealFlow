@@ -11,8 +11,8 @@ import java.util.UUID;
 public class Prato {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "prato_nome", nullable = false)
     private String nome;
