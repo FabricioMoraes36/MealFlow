@@ -5,7 +5,8 @@ import com.dev.MealFood.Enums.Turno;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "mesas")
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @Builder
+@EqualsAndHashCode(of = "id")
 public class Mesa {
 
     @Id
@@ -28,8 +30,9 @@ public class Mesa {
 
     private Turno turnoMesa;
 
-    @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL)
-    private List<Pedido> pedidos;
+    @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Pedido> pedidos = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "garcom_id")

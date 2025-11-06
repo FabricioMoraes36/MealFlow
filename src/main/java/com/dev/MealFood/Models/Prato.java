@@ -2,20 +2,18 @@ package com.dev.MealFood.Models;
 
 import com.dev.MealFood.Enums.PratoCategoria;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Table(name = "pratos")
 public class Prato {
 
@@ -39,5 +37,5 @@ public class Prato {
             joinColumns = @JoinColumn(name = "prato_id"),
             inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
     )
-    private List<Ingredientes> ingredientes;
+    private List<Ingredientes> ingredientes = new ArrayList<>();
 }

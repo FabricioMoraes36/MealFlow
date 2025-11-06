@@ -3,22 +3,25 @@ package com.dev.MealFood.Models;
 
 import com.dev.MealFood.Enums.StatusPedido;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table (name = "pedidos")
 public class Pedido {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nome_pedido")
@@ -39,11 +42,13 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mesa_id")
     private Mesa mesa;
 
 
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "garcom_id")
     private Garcom garcom;
 
 
@@ -53,7 +58,8 @@ public class Pedido {
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "prato_id")
     )
-    private List<Prato> pratos;
+    @Builder.Default
+    private List<Prato> pratos = new ArrayList<>();
 
 
 

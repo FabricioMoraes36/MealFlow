@@ -57,7 +57,7 @@ public class GarcomService {
         }
 
         // Regra - Garçom deve ter o mesmo Turno da Mesa
-        if (!mesa.getTurno().equals(garcom.getTurno())) {
+        if (!mesa.getTurnoMesa().equals(garcom.getTurno())) {
             throw new RuntimeException("Garçom só pode atender mesas do mesmo Turno");
         }
 
