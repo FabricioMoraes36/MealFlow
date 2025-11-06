@@ -1,5 +1,6 @@
 package com.dev.MealFood.Controllers;
 
+import com.dev.MealFood.DTO.RelatorioGarcomDTO;
 import com.dev.MealFood.Models.Garcom;
 import com.dev.MealFood.Services.GarcomService;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,10 @@ public class GarcomController {
             @PathVariable Long mesaId
     ) {
         return service.atribuirMesa(garcomId, mesaId);
+    }
+
+    @GetMapping("/relatorio")
+    public List<RelatorioGarcomDTO> relatorioGarcons() {
+        return service.relatorioGarcons();
     }
 }

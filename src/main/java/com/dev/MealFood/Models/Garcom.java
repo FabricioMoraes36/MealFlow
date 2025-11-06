@@ -1,11 +1,13 @@
 package com.dev.MealFood.Models;
 
 import com.dev.MealFood.Enums.Turno;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,6 +25,7 @@ public class Garcom {
     @NotNull(message = "Turno é obrigatório")
     private Turno turno;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "garcom")
-    private List<Mesa> mesas;
+    private List<Mesa> mesas = new ArrayList<>();
 }
