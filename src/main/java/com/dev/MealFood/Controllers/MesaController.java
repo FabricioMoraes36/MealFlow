@@ -1,5 +1,6 @@
 package com.dev.MealFood.Controllers;
 
+import com.dev.MealFood.DTO.MesaAttRequest;
 import com.dev.MealFood.DTO.MesaRequest;
 import com.dev.MealFood.DTO.MesaResponse;
 import com.dev.MealFood.Models.Mesa;
@@ -41,8 +42,8 @@ public class MesaController {
     }
 
     @PatchMapping("/atualizar/{id}")
-    public ResponseEntity<MesaResponse> atualizarMesa(@PathVariable Long id, MesaRequest mesaRequest){
-        MesaResponse updatedMesa = mesaService.atualizarMesa(id, mesaRequest);
+    public ResponseEntity<MesaResponse> atualizarMesa(@PathVariable Long id, MesaAttRequest mesaAttRequest){
+        MesaResponse updatedMesa = mesaService.atualizarMesa(id, mesaAttRequest);
 
         return ResponseEntity.ok(updatedMesa);
     }

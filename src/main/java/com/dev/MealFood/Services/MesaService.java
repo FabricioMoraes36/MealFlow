@@ -1,5 +1,6 @@
 package com.dev.MealFood.Services;
 
+import com.dev.MealFood.DTO.MesaAttRequest;
 import com.dev.MealFood.DTO.MesaRequest;
 import com.dev.MealFood.DTO.MesaResponse;
 import com.dev.MealFood.Enums.MesaStatus;
@@ -25,11 +26,11 @@ public class MesaService {
             throw new IllegalArgumentException("A mesa contém algum campo nulo");
         }
 
-        Mesa mesa = Mesa.builder()
-                .numero(mesaRequest.numeroMesa())
-                .status(MesaStatus.valueOf(mesaRequest.statusMesa()))
-                .turnoMesa(Turno.valueOf(mesaRequest.turnoMesa()))
-                .build();
+        Mesa mesa = new Mesa();
+
+        mesa.setNumero(mesaRequest.numeroMesa());
+        mesa.setStatus(MesaStatus.valueOf("LIVRE"));
+        mesa.setTurnoMesa(Turno.valueOf("MANHA"));
 
         mesaRepository.save(mesa);
 
@@ -54,23 +55,23 @@ public class MesaService {
         mesaRepository.deleteById(id);
     }
 
-    public MesaResponse atualizarMesa(Long id, MesaRequest mesaRequest){
-        Mesa mesaExistente = mesaRepository.findById(id)
+    public MesaResponse atualizarMesa(Long id, MesaAttRequest mesaAttRequest){
+        Mesa mesa = mesaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Mesa não encontrada com o ID: " + id));
 
-        if (Objects.nonNull(mesaRequest.numeroMesa())) {
-            mesaExistente.setNumero(mesaRequest.numeroMesa());
+        if (Objects.nonNull(mesaAttRequest.numeroMesa())) {
+            mesa.setNumero(mesaAttRequest.numeroMesa());
         }
-        if (Objects.nonNull(mesaRequest.statusMesa())) {
-            mesaExistente.setStatus(MesaStatus.valueOf(mesaRequest.statusMesa()));
+        if (Objects.nonNull(mesa.getStatus())) {
+            mesa.setStatus(MesaStatus.valueOf(mesaAttRequest.statusMesa()));
         }
-        if (Objects.nonNull(mesaRequest.turnoMesa())) {
-            mesaExistente.setTurnoMesa(Turno.valueOf(mesaRequest.turnoMesa()));
+        if (Objects.nonNull(mesaAttRequest.turnoMesa())) {
+            mesa.setTurnoMesa(Turno.valueOf(mesaAttRequest.turnoMesa()));
         }
 
-        mesaRepository.save(mesaExistente);
+        mesaRepository.save(mesa);
 
-        return new MesaResponse(mesaExistente.getId(), mesaExistente.getNumero(), mesaExistente.getStatus().name(), mesaExistente.getTurnoMesa());
+        return new MesaResponse(mesa.getId(), mesa.getNumero(), mesa.getStatus().name(), mesa.getTurnoMesa());
     }
 
 }
