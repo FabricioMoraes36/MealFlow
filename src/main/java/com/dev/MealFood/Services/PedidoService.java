@@ -46,6 +46,8 @@ public class PedidoService {
 
             mesa.setStatus(MesaStatus.OCUPADA);
             mesaRepository.save(mesa);
+
+
             return pedidoRepository.save(pedido);
         }
     }
