@@ -19,6 +19,7 @@ public class Pedido {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nome_pedido")
@@ -39,21 +40,16 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
-    @OneToMany
+    @ManyToOne
+    @JoinColumn(name = "mesa_id")
     private Mesa mesa;
 
-
-    @OneToMany
+    @ManyToOne
+    @JoinColumn(name = "garcom_id")
     private Garcom garcom;
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "pedido_prato",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "prato_id")
-    )
-    private List<Prato> pratos;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PedidoPrato> pedidoPratos;
 
 
 

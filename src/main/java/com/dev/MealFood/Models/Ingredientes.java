@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Entity
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class Ingredientes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nome_ingrediente")
@@ -29,9 +30,9 @@ public class Ingredientes {
     private double quantidadeEmEstoque;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "unidade_medida_ingrediente")
     private UnidadeMedida unidadeMedida;
 
-    @ManyToMany(mappedBy = "ingredientes")
-    private List<Prato> pratos;
+    // Substitui ManyToMany por uma entidade de junção explícita para garantir PK na tabela de junção
+    @OneToMany(mappedBy = "ingrediente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PratoIngrediente> pratoIngredientes = new ArrayList<>();
 }

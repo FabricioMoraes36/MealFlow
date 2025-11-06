@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -33,11 +33,11 @@ public class Prato {
     @Column(name = "prato_categoria", nullable = false)
     private PratoCategoria categoria;
 
-    @ManyToMany
-    @JoinTable(
-            name = "prato_ingrediente",
-            joinColumns = @JoinColumn(name = "prato_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
-    )
-    private List<Ingredientes> ingredientes;
+    // Substitui ManyToMany por uma entidade de junção explícita para garantir que a tabela
+    // de junção tenha uma primary key (sql_require_primary_key do MySQL exige PK).
+    @OneToMany(mappedBy = "prato", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PratoIngrediente> pratoIngredientes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "prato", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PedidoPrato> pedidoPratos;
 }
